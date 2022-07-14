@@ -71,11 +71,11 @@ a {
 
 .nav-link {
   transition: 0.3s ease;
-}
 
-.nav-link:hover {
-  color: $primary;
-  cursor: pointer;
+  &:hover {
+    color: $primary;
+    cursor: pointer;
+  }
 }
 
 .landing {
