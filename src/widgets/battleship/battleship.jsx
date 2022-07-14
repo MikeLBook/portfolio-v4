@@ -89,6 +89,7 @@ class Square extends React.Component {
         this.state = {
             color : this.props.playerCoordinate(this.props.x, this.props.y) && this.props.thisPlayer === 1 ? 'blue' : 'white',
             value : '',
+            highlight: false
         }
     }
 
@@ -111,8 +112,14 @@ class Square extends React.Component {
 
     render() {
         return (
-            <div className='bs-square' 
-            onClick={() => this.sendHit()} style={{backgroundColor: this.state.color}}>
+            <div 
+                className='bs-square' 
+                onClick={() => this.sendHit()} 
+                style={{
+                    backgroundColor: this.state.color,
+                    border: this.state.highlight ? '2px solid green' : ''
+                }}
+            >
             {this.state.value}</div>
         )   
     }
@@ -302,7 +309,7 @@ class Battleship extends React.Component {
         let cpuTurn = true;
         while (cpuTurn === true) {
             while (this.state.cpuTargetHistory.indexOf(this.state.nextTarget) !== -1) {
-                await this.sleep(500);
+                await this.sleep(1000);
                 this.calculateNextTarget();
             }
             const index = this.state.nextTarget;
