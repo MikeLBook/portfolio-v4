@@ -41,7 +41,7 @@ const Widgets = () => {
 
     return(
         <div className='widgets-container'>
-            {render !== 'menu' && <button onClick={() => setRender('menu')} className='back'><i className='fa fa-backward my-icon'></i></button>}
+            {render !== 'menu' && <button onClick={() => setRender('menu')} className='back'>Back</button>}
             {display}
         </div>
     )
