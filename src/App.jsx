@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import Portfolio from './portfolio';
-import Widgets from './containers/widgets';
+import Portfolio from './pages/portfolio/portfolio';
+import Widgets from './pages/widgets/widgets';
+import './App.scss'
 
 function App() {
   const [view, setView] = useState(<Portfolio />);

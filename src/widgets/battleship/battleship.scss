@@ -1,0 +1,70 @@
+.bs-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.bs-newGame {
+    width: 200px;
+    height: 50px;
+    background-color: darkslategray;
+    border-radius: 5px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s ease;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: scale(.97);
+    }
+}
+
+.bs-boards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.bs-board {
+    width: 350px;
+    height: 350px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    border-style: solid;
+    border-color: teal;
+
+    @media(max-width: 350px) {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+.bs-square {
+    width: 10%;
+    height: 10%;
+    border-style: solid;
+    border-color: black;
+    text-align: center;
+    text-justify: center;
+    font-size: large;
+    font-weight: bolder;
+    color: black;
+    transition: transform(1.1);
+}
+
+.bs-title {
+    text-align: center;
+    color: black;
+    font-size: large;
+    font-weight: bold;
+}

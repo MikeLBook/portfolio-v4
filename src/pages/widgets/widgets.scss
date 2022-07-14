@@ -1,0 +1,32 @@
+.widgets-container {
+    margin-top: 75px;
+    background-color: #333;
+    width: 100%;
+    min-height: 90vh;
+    border-top: solid 3px  #109CFF;
+    border-bottom: solid 3px  #109CFF;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+
+.widget {
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.widget:hover {
+    cursor: pointer;
+    background-color:  #00518B;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color:  #00518B;
+    height: 25px;
+    width: 50px;
+}
