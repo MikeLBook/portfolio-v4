@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react';
 import Logo from '../../assets/landing-image.svg';
 import About from '../../assets/about.svg';
-import spotify from '../../assets/spotify.jpg';
-import reporting from '../../assets/SDReporting.jpg';
 import sdtools from '../../assets/sdtools.JPG';
 import resume from '../../assets/resume.pdf';
+import phase2 from '../../assets/phase2.webp';
+import ohh from '../../assets/ohh.png';
 import Project from '../../components/project';
 import {isBrowser} from 'react-device-detect';
 
@@ -44,34 +44,33 @@ const Portfolio = () => {
             <div className="landing-text-container">
                 <h1>Hello.</h1>
                 <h1>I'm <strong>Michael</strong>.</h1>
-                <p>I am a web developer with full stack experience using <strong>Python, Node, JavaScript, React, HTML5, and CSS3/SASS</strong>. I develop web applications both on and off the job. I enjoy problem solving as well as working with new tools and technologies.</p>
+                <p>I am a software engineer with full stack experience using <strong>Python, JavaScript, Kotlin, PHP, HTML5, and CSS3/SASS</strong>. I develop web applications both on and off the job. I enjoy problem solving as well as working with new tools and technologies.</p>
             </div>
         </div>
         <div className="project-container">
-            <h1 className={isBrowser ? 'section-header hidden' : 'section-header'}>Projects</h1>
+            <h1 className={isBrowser ? 'section-header hidden' : 'section-header'}>Experience</h1>
             <Project 
-            projectClass='project-spotify'
-            image={spotify}
-            title='Spotify Clone'
-            description="A project for fun. A fully functional 'clone' of both the Spotify landing page and web player, using their SDK and API."
-            tags={['JS', 'React', 'APIs', 'SASS']}
-            links={['https://github.com/Tune42/spotify-clone', 'https://tune42-spotify.netlify.app/']}
+            projectClass='project-phase2'
+            image={phase2}
+            title='Phase 2'
+            description="I currently work at Phase 2 as a software engineer on their POGO team. POGO is a white labeled commercial real estate product that integrates property management, maintenance, bookable spaces, services, amenities, and more into a single platform."
+            tags={['VueJS', 'Kotlin', 'Swift', 'SASS']}
             />
             <Project
-            projectClass='project-reporting'
-            image={reporting}
-            title='Service Desk Reporting'
-            description="A reporting application that fetches data from Atlassian's Jira API.'"
-            tags={['React', 'CSS3', 'APIs', 'Express']}
+            projectClass='project-ohh'
+            image={ohh}
+            title='Oklahoma Heart Hospital'
+            description="As an Applications Developer for Oklahoma Heart Hospital, I was responsible for creating and maintaining dashboards within Cerner PowerChart, report writing and data retrieval using Cerner Command Language, and upkeep of back end jobs and services. During my time there I trained and deployed an AI assisted billing model as well as an in house fax service to save costs, using Millenniums Remote Report Distribution"
+            tags={['React', 'Laravel', 'CCL', 'jQuery']}
             />
             <Project 
             projectClass='project-sdtools'
             image={sdtools}
-            title='SDTools'
-            description='A flask application written in Python to house automation scripts for the company service desk'
+            title='Service Desk Tools and Automation'
+            description='Before my transition into a proper software role, I developed applications for the service desk at GlobalHealth. I created various python scripts to automate tasks across various departments, many of which were in the realm of reporting tools. These scripts were accessed through a web console which was hosted internally using IIS'
             tags={['Python', 'Flask', 'Bootstrap', 'IIS']}
             />
-            <form action="https://github.com/Tune42">
+            <form action="https://github.com/MikeLBook">
             <button type="submit" className={isBrowser ? 'github-plug hidden' : 'github-plug'}><h3>See more on github</h3></button>
             </form>
             <h1 className={isBrowser ? 'section-header hidden' : 'section-header'}>Contact</h1>
