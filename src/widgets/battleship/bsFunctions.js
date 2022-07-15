@@ -2,7 +2,7 @@ Array.prototype.random = function () {
     return this[Math.floor((Math.random()*this.length))];
 }
 
-export default function getShipCoordinates() {
+export function getShipCoordinates() {
     const directions = ['horizontal', 'vertical']
     const shipSizes = [5, 4, 3, 3, 2]
     const shipCoordinates = []
