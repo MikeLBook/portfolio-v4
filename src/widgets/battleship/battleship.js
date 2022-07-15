@@ -1,17 +1,9 @@
 class Battleship {
     #availableCoordinates; 
     #lastTarget; 
-    #searchDirection = 'up'; // up, left, down, right
+    #searchDirection = 'up';
     #isFixedDirection = false;
     #recentHits = [];
-    #largestPossibleShip = 'carrier';
-    #shipSizes = {
-        'carrier': 5,
-        'battleship': 4,
-        'cruiser': 3,
-        'submarine': 3,
-        'destroyer': 2
-    }
 
     constructor() { 
         this.resetAvailableCoordinates()
@@ -82,16 +74,8 @@ class Battleship {
 
     useCoordinate() {
         if (this.#recentHits.length > 0) {
-            if (this.#recentHits.length === this.#shipSizes[this.#largestPossibleShip]) {
-                this.#recentHits = []
-                this.#searchDirection = 'up'
-                this.#nextMaxSize()
-                this.#lastTarget = this.#useRandomAvailableCoordinate()
-                return this.#lastTarget
-            } else {
-                this.#lastTarget = this.#calculateNextTarget()
-                return this.#lastTarget
-            }
+            this.#lastTarget = this.#calculateNextTarget()
+            return this.#lastTarget
         } else {
             this.#lastTarget = this.#useRandomAvailableCoordinate()
             return this.#lastTarget
@@ -116,6 +100,7 @@ class Battleship {
             } else {
                 this.#recentHits = []
                 this.#isFixedDirection = false
+                this.#searchDirection = 'up'
             }
         }
     }
@@ -164,8 +149,9 @@ class Battleship {
         } else if (this.#searchDirection === 'right') {
             newTarget.x = newTarget.x + 1
             if (!this.#isAvailableTarget(newTarget)) {
-                this.#nextDirection()
-                return this.#calculateNextTarget()
+                this.#recentHits = [];
+                this.#searchDirection = 'up';
+                return this.#useRandomAvailableCoordinate()
             } else {
                 const calculatedIndex = this.#availableCoordinates.findIndex(coordinate => {
                     return coordinate.x === newTarget.x && coordinate.y === newTarget.y
@@ -175,23 +161,11 @@ class Battleship {
         }
     }
 
-    #nextMaxSize() {
-        switch(this.#largestPossibleShip) {
-            case 'carrier':
-                this.#largestPossibleShip = 'battleship';
-                break;
-            case 'battleship':
-                this.#largestPossibleShip = 'cruiser';
-                break;
-            case 'cruiser':
-                this.#largestPossibleShip = 'submarine';
-                break;
-            case 'submarine':
-                this.#largestPossibleShip = 'destroyer';
-        }
-    }
-
     #nextDirection() {
+        if (this.#isFixedDirection) {
+            this.#recentHits = []
+            this.#isFixedDirection = false
+        }
         switch(this.#searchDirection) {
             case 'up':
                 this.#searchDirection = 'left';
@@ -201,10 +175,6 @@ class Battleship {
                 break;
             case 'down':
                 this.#searchDirection = 'right';
-                break;
-            case 'right':
-                this.#recentHits = [];
-                this.#searchDirection = 'up';
                 break;
         }
     }
