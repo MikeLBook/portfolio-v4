@@ -66,7 +66,7 @@ const Portfolio = () => {
             <Project 
             projectClass='project-sdtools'
             image={sdtools}
-            title='Service Desk Tools and Automation'
+            title='Service Desk Automation'
             description='Before my transition into a proper software role, I developed applications for the service desk at GlobalHealth. I created various python scripts to automate tasks across various departments, many of which were in the realm of reporting tools. These scripts were accessed through a web console which was hosted internally using IIS'
             tags={['Python', 'Flask', 'Bootstrap', 'IIS']}
             />

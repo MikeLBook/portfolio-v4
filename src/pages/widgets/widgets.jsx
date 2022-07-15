@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Battleship from '../../widgets/battleship/game';
+import Battleship from '../../widgets/battleship/battleship.jsx';
 import TicTacToe from '../../widgets/tictactoe/tictactoe';
 import Calculator from '../../widgets/calculator/calculator';
 import tttImage from '../../assets/tictactoe.png';

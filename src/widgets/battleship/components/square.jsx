@@ -1,30 +1,43 @@
 import React, {useState, useEffect} from 'react';
 
 const Square = ({
-    isShipLocation, isPlayerBoard, turn, handleBoardClick, baseColor, isGameOver
+    isShipLocation, isPlayerBoard, turn, handleClick, baseColor, isGameOver, isCpuTarget
 }) => {
-    const [clicked, setClicked] = useState(false)
+    const [hasBeenClicked, setHasBeenClicked] = useState(false)
 
+    // Fires if the square becomes the cpuTarget
+    useEffect(() => {
+        if (isCpuTarget) {
+            if (!hasBeenClicked) {
+                setHasBeenClicked(true)
+                handleClick(true, isShipLocation)
+            } else {
+                handleClick(false, isShipLocation)
+            }
+        }
+    }, [isCpuTarget])
+
+    // Fires when the user clicks a given square
     const clickSquare = () => {
-        // only trigger if the square has not been clicked yet, the game is not over,
-        // and the square belongs to the board of the opponent of whose turn it is
-        if (!clicked && ((turn === 'player') ? !isPlayerBoard : isPlayerBoard) && !isGameOver) {
-            setClicked(true)
-            handleBoardClick(isShipLocation)
+        if (!hasBeenClicked && !isPlayerBoard && !isGameOver && turn === 'player') {
+            setHasBeenClicked(true)
+            handleClick(isShipLocation)
         }
     }
 
+    // render logic
     let backgroundColor = baseColor;
-    if (clicked && isShipLocation) {
+    if (hasBeenClicked && isShipLocation) {
         backgroundColor = 'red'
     }
 
+    // draw square
     return(
         <div 
             onClick={clickSquare}
             className='bs-square' 
             style={{backgroundColor: backgroundColor}}
-        > {clicked && 'x'}
+        > {hasBeenClicked && 'x'}
         </div>
     )
 }
