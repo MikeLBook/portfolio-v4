@@ -65,7 +65,6 @@ class Calculator extends React.Component {
 
     handleNumberPress = (value) => {
         this.props.playSound()
-        console.log(value)
         const input = this.state.currentInput + value;
         this.setState({
             currentInput : input,

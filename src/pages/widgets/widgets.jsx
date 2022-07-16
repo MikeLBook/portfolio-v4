@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Battleship from '../../widgets/battleship/battleship.jsx';
-import TicTacToe from '../../widgets/tictactoe/tictactoe';
-import Calculator from '../../widgets/calculator/calculator';
+import TicTacToe from '../../widgets/tictactoe/tictactoe.jsx';
+import Calculator from '../../widgets/calculator/calculator.jsx';
 import tttImage from '../../assets/tictactoe.png';
 import calcImage from '../../assets/calculator.png';
 import bsImage from '../../assets/battleship.png';
