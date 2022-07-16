@@ -10,7 +10,7 @@ const Battleship = () => {
     const [gameCount, setGameCount] = useState(0) // leverages list component keys to reset child component state
     const [playerScore, setPlayerScore] = useState(0) // incremented after successful hits, 17 hits to win
     const [cpuScore, setCPUScore] = useState(0) // incremented after successful hits, 17 hits to win
-    const [gameOver, setGameOver] = useState(false) // boolean representing whether or not the current game has ended
+    const [gameOver, setGameOver] = useState(true) // boolean representing whether or not the current game has ended
     const [cpuClickCoordinates, setCPUClickCoordinates] = useState(null) // an object with keys for x and y
 
     // check win condition on score change
@@ -36,13 +36,13 @@ const Battleship = () => {
 
     // reset state to initial game values
     const newGame = () => {
-        setGameOver(false)
         setGameCount(prevGameCount => prevGameCount + 1)
         setPlayerScore(0)
         setCPUScore(0)
         setPlayerShipCoordinates(battleship.getRandomizedShipCoordinates())
         setCPUShipCoordinates(battleship.getRandomizedShipCoordinates())
         battleship.resetAvailableCoordinates()
+        setGameOver(false)
     }
 
     const handlePlayerClick = (successfulHit) => { 
@@ -62,7 +62,6 @@ const Battleship = () => {
             }
             setTurn('player')
         } else {
-            battleship.reportAlreadyHit()
             setCPUClickCoordinates(battleship.useCoordinate())
         }
     }

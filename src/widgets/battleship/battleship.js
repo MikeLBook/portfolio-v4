@@ -96,12 +96,7 @@ class Battleship {
         } else if (this.#recentHits.length > 1) {
             if (!this.#isFixedDirection) {
                 this.#invertDirection()
-                this.#isFixedDirection = true
-            } else {
-                this.#recentHits = []
-                this.#isFixedDirection = false
-                this.#searchDirection = 'up'
-            }
+            } 
         }
     }
 
@@ -111,52 +106,33 @@ class Battleship {
     }
 
     #calculateNextTarget() {
-        debugger
         const newTarget = this.#isFixedDirection ? {...this.#recentHits[0]} : {...this.#recentHits[this.#recentHits.length - 1]}
         if (this.#searchDirection === 'up') {
             newTarget.y = newTarget.y - 1
-            if (!this.#isAvailableTarget(newTarget)) {
-                this.#nextDirection()
-                return this.#calculateNextTarget()
-            } else {
-                const calculatedIndex = this.#availableCoordinates.findIndex(coordinate => {
-                    return coordinate.x === newTarget.x && coordinate.y === newTarget.y
-                })
-                return this.#availableCoordinates.splice(calculatedIndex, 1)[0]
-            }
         } else if (this.#searchDirection === 'left') {
             newTarget.x = newTarget.x - 1
-            if (!this.#isAvailableTarget(newTarget)) {
-                this.#nextDirection()
-                return this.#calculateNextTarget()
-            } else {
-                const calculatedIndex = this.#availableCoordinates.findIndex(coordinate => {
-                    return coordinate.x === newTarget.x && coordinate.y === newTarget.y
-                })
-                return this.#availableCoordinates.splice(calculatedIndex, 1)[0]
-            }
         } else if (this.#searchDirection === 'down') {
             newTarget.y = newTarget.y + 1
-            if (!this.#isAvailableTarget(newTarget)) {
-                this.#nextDirection()
-                return this.#calculateNextTarget()
-            } else {
-                const calculatedIndex = this.#availableCoordinates.findIndex(coordinate => {
-                    return coordinate.x === newTarget.x && coordinate.y === newTarget.y
-                })
-                return this.#availableCoordinates.splice(calculatedIndex, 1)[0]
-            }
         } else if (this.#searchDirection === 'right') {
             newTarget.x = newTarget.x + 1
-            if (!this.#isAvailableTarget(newTarget)) {
-                this.#recentHits = [];
-                this.#searchDirection = 'up';
-                return this.#useRandomAvailableCoordinate()
+        }
+        if (this.#isAvailableTarget(newTarget)) {
+            const calculatedIndex = this.#availableCoordinates.findIndex(coordinate => {
+                return coordinate.x === newTarget.x && coordinate.y === newTarget.y
+            })
+            return this.#availableCoordinates.splice(calculatedIndex, 1)[0]
+        } else {
+            if (!this.#isFixedDirection && this.#recentHits.length > 1) {
+                this.#invertDirection()
+                return this.#calculateNextTarget()
             } else {
-                const calculatedIndex = this.#availableCoordinates.findIndex(coordinate => {
-                    return coordinate.x === newTarget.x && coordinate.y === newTarget.y
-                })
-                return this.#availableCoordinates.splice(calculatedIndex, 1)[0]
+                if (this.#searchDirection === 'right') {
+                    this.#nextDirection()
+                    return this.#useRandomAvailableCoordinate()
+                } else {
+                    this.#nextDirection()
+                    return this.#calculateNextTarget()
+                }
             }
         }
     }
@@ -176,10 +152,14 @@ class Battleship {
             case 'down':
                 this.#searchDirection = 'right';
                 break;
+            case 'right':
+                this.#searchDirection = 'up';
+                break;
         }
     }
 
     #invertDirection() {
+        this.#isFixedDirection = true
         switch(this.#searchDirection) {
             case 'up':
                 this.#searchDirection = 'down';
