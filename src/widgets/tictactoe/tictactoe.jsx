@@ -23,7 +23,8 @@ class TicTacToe extends React.Component{
 
     handleClick = (index) => {
         if (this.state.board[index] === null && ! this.state.winner) {
-            let newBoard = this.state.board;
+            this.props.playSound()
+            const newBoard = this.state.board;
             this.state.playerOnesTurn ? newBoard[index] = 'X' : newBoard[index] = 'O';
             this.setState({
                 board : newBoard,
@@ -34,6 +35,7 @@ class TicTacToe extends React.Component{
     }
 
     newGame = () => {
+        this.props.playSound()
         this.setState({
             board : Array(9).fill(null),
             playerOnesTurn : true,

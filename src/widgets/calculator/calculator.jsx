@@ -4,13 +4,12 @@ import './calculator.scss';
 function Button(props) {
     return(
         <div 
-        className={props.type}
-        onMouseDown={(e) => e.target.style.transform = "scale(.95)"}
-        onMouseUp={(e) => e.target.style.transform = "scale(1)"}
-        onMouseOut={(e) => e.target.style.transform = "scale(1)"}
-        onClick={() => props.click(props.value)}
-        value={props.value}
-        >{props.value}</div>
+            className={props.type}
+            onClick={() => props.click(props.value)}
+            value={props.value}
+        >
+            {props.value}
+        </div>
     )
 }
 
@@ -23,7 +22,35 @@ class Calculator extends React.Component {
         }
     }
 
+    componentDidMount = () => {
+        const eventListernerCallBack = (e) => {
+            if (e.key === "Backspace"){
+              this.handleBackspace();
+            } else if (e.key === "Delete" || e.key === "c"){
+              this.handleClear();
+            } else if (e.key === "Enter"){
+              this.evaluate();
+            } else if (!isNaN(e.key)) {
+                this.handleNumberPress(e.key);
+            } else if (e.key === '.') {
+                this.handleDecimal();
+            } else if (e.key === '*' || e.key === '+' || e.key === '-' || e.key === '\\') {
+                this.handleOperator(e.key);
+            }
+        }
+        this.setState({
+            eventListernerCallBack
+        })
+        document.addEventListener('keyup', eventListernerCallBack);
+    }
+
+    componentDidUpdate = () => {
+        document.removeEventListener('keyup', this.state.eventListernerCallBack);
+        document.addEventListener('keyup', this.state.eventListernerCallBack);
+    }
+
     handleBackspace = () => {
+        this.props.playSound()
         const input = this.state.currentInput.slice(0, -1)
         if (input === '-') {
             this.setState({
@@ -37,6 +64,8 @@ class Calculator extends React.Component {
     }
 
     handleNumberPress = (value) => {
+        this.props.playSound()
+        console.log(value)
         const input = this.state.currentInput + value;
         this.setState({
             currentInput : input,
@@ -44,6 +73,7 @@ class Calculator extends React.Component {
     }
 
     handleOperator = (value) => {
+        this.props.playSound()
         if (this.state.currentInput !== '') {
             let input;
             if (this.state.currentInput[0] === '-') {
@@ -60,6 +90,7 @@ class Calculator extends React.Component {
     }
 
     handleClear = () => {
+        this.props.playSound()
         this.setState({
             currentInput : '',
             currentTotal : '',
@@ -67,6 +98,7 @@ class Calculator extends React.Component {
     }
 
     changeNegative = () => {
+        this.props.playSound()
         if (this.state.currentInput !== '') {
             if (this.state.currentInput[0] === '-') {
                 const input = this.state.currentInput.substr(1)
@@ -83,6 +115,7 @@ class Calculator extends React.Component {
     }
 
     handleDecimal = () => {
+        this.props.playSound()
         let input = this.state.currentInput
         if (input.indexOf('.') === -1) {
             input = this.state.currentInput + '.'
@@ -93,6 +126,7 @@ class Calculator extends React.Component {
     }
 
     evaluate = () => {
+        this.props.playSound()
         if (this.state.currentTotal !== '') {
             let input;
             if (this.state.currentInput[0] === '-') {
@@ -136,8 +170,6 @@ class Calculator extends React.Component {
                 case "-":
                     total -= Number(numbers.shift());
                     break;
-                default:
-                    console.log("This shouldn't be happening");
                 }
             });
             this.setState({
@@ -145,30 +177,6 @@ class Calculator extends React.Component {
                 currentTotal : ''
             })
         }
-    }
-
-    handleKeyUp = (event) => {
-        console.log(event);
-    }
-
-    componentDidMount = () => {
-        document.addEventListener('keyup', (e) => {
-            if (e.key === "Backspace"){
-              this.handleBackspace();
-            } else if (e.key === "Delete" || e.key === "c"){
-              this.handleClear();
-            } else if (e.key === "Enter"){
-              this.evaluate();
-            } else if (!isNaN(e.key)) {
-                this.handleNumberPress(e.key);
-            } else if (e.key === '.') {
-                this.handleDecimal();
-            } else if (e.key === '*' || e.key === '+' || e.key === '-' || e.key === '\\') {
-                this.handleOperator(e.key);
-            } else {
-                console.log(e.key);
-            }
-        });
     }
 
     render() {

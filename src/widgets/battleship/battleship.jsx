@@ -3,7 +3,7 @@ import Square from './components/square.jsx'
 import battleship from './battleship.js'
 import './battleship.scss';
 
-const Battleship = () => {
+const Battleship = ({playSound}) => {
     const [playerShipCoordinates, setPlayerShipCoordinates] = useState(null) // array of objects with keys for x and y
     const [cpuShipCoordinates, setCPUShipCoordinates] = useState(null) // array of objects with keys for x and y
     const [turn, setTurn] = useState('player') // string with the value of 'player' or 'cpu'
@@ -46,6 +46,7 @@ const Battleship = () => {
 
     // reset state to initial game values
     const newGame = () => {
+        playSound()
         setGameCount(prevGameCount => prevGameCount + 1)
         setPlayerScore(0)
         setCPUScore(0)
@@ -56,6 +57,7 @@ const Battleship = () => {
     }
 
     const handlePlayerClick = (successfulHit) => { 
+        playSound()
         if (successfulHit) {
             setPlayerScore(prevScore => prevScore + 1)
         } else {
@@ -65,6 +67,7 @@ const Battleship = () => {
 
     const handleCPUClick = (successfulClick, successfulHit) => {
         if (successfulClick) { 
+            playSound()
             if (successfulHit) {
                 setCPUScore(prevScore => prevScore + 1)
                 battleship.reportSuccessfulHit()
