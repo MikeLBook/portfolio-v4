@@ -11,7 +11,8 @@ const Battleship = () => {
     const [playerScore, setPlayerScore] = useState(0) // incremented after successful hits, 17 hits to win
     const [cpuScore, setCPUScore] = useState(0) // incremented after successful hits, 17 hits to win
     const [gameOver, setGameOver] = useState(true) // boolean representing whether or not the current game has ended
-    const [cpuClickCoordinates, setCPUClickCoordinates] = useState(null) // an object with keys for x and y
+    const [cpuClickCoordinates, setCpuClickCoordinates] = useState(null) // an object with keys for x and y
+    const [intervalId, setIntervalId] = useState(null)
 
     // check win condition on score change
     useEffect(() => {
@@ -28,10 +29,19 @@ const Battleship = () => {
     // handle turn loop
     useEffect(() => {
         if (turn === 'cpu') {
-            setCPUClickCoordinates(battleship.useCoordinate())
+            if (!intervalId) {
+                const interval = setInterval(() => {
+                    setCpuClickCoordinates(battleship.useCoordinate())
+                }, 1500)
+                setIntervalId(interval)
+            }
         } else {
-            setCPUClickCoordinates(null)
+            clearInterval(intervalId)
+            setIntervalId(null)
+            setCpuClickCoordinates(null)
         }
+
+        return (interval) => {clearInterval(interval); setIntervalId(null);}
     }, [turn])
 
     // reset state to initial game values
@@ -48,8 +58,9 @@ const Battleship = () => {
     const handlePlayerClick = (successfulHit) => { 
         if (successfulHit) {
             setPlayerScore(prevScore => prevScore + 1)
+        } else {
+            setTurn('cpu')
         }
-        setTurn('cpu')
     }
 
     const handleCPUClick = (successfulClick, successfulHit) => {
@@ -59,10 +70,10 @@ const Battleship = () => {
                 battleship.reportSuccessfulHit()
             } else {
                 battleship.reportMissedHit()
+                setTurn('player')
             }
-            setTurn('player')
         } else {
-            setCPUClickCoordinates(battleship.useCoordinate())
+            setCpuClickCoordinates(battleship.useCoordinate())
         }
     }
 
@@ -108,13 +119,13 @@ const Battleship = () => {
             <div className='bs-boards'>
                 <div>
                     <div className='title mt-5 bs-title'>Your Ships</div>
-                    <div className='bs-board'>
+                    <div className={turn === 'cpu' ? 'bs-board selected' : 'bs-board'}>
                         {playerBoard}
                     </div>
                 </div>
                 <div>
                     <div className='title mt-5 bs-title'>CPU Ships</div>
-                    <div className='bs-board'>
+                    <div className={turn !== 'cpu' ? 'bs-board selected' : 'bs-board'}>
                         {cpuBoard}
                     </div>
                 </div>

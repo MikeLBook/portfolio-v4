@@ -41,6 +41,12 @@
     align-items: flex-start;
     flex-wrap: wrap;
     border: 3px solid teal;
+    transition: ease-in .3s;
+
+    &.selected {
+        border: 5px solid gold;
+        transition: ease-in .3s; 
+    }
 
     @media(max-width: 350px) {
         width: 250px;
