@@ -10,7 +10,13 @@ class Battleship {
     }
 
     resetAvailableCoordinates() { 
-        this.#availableCoordinates = this.getAllCoordinates()
+        const coordinates = []
+        for (let x = 0; x < 10; x++) {
+            for (let y = 0; y < 10; y++) {
+                coordinates.push({x: x, y: y})
+            }
+        }
+        this.#availableCoordinates = coordinates
     }
 
     getRandomizedShipCoordinates() {
@@ -62,16 +68,6 @@ class Battleship {
         return shipCoordinates
     }
 
-    getAllCoordinates() {
-        const coordinates = []
-        for (let x = 0; x < 10; x++) {
-            for (let y = 0; y < 10; y++) {
-                coordinates.push({x: x, y: y})
-            }
-        }
-        return coordinates
-    }
-
     useCoordinate() {
         if (this.#recentHits.length > 0) {
             this.#lastTarget = this.#calculateNextTarget()
@@ -79,24 +75,6 @@ class Battleship {
         } else {
             this.#lastTarget = this.#useRandomAvailableCoordinate()
             return this.#lastTarget
-        }
-    }
-
-    reportSuccessfulHit() {
-        if (!this.#isFixedDirection) {
-            this.#recentHits.push(this.#lastTarget)
-        } else {
-            this.#recentHits.unshift(this.#lastTarget)
-        }
-    }
-
-    reportMissedHit() {
-        if (this.#recentHits.length === 1) {
-            this.#nextDirection()
-        } else if (this.#recentHits.length > 1) {
-            if (!this.#isFixedDirection) {
-                this.#invertDirection()
-            } 
         }
     }
 
@@ -122,10 +100,11 @@ class Battleship {
             })
             return this.#availableCoordinates.splice(calculatedIndex, 1)[0]
         } else {
-            if (!this.#isFixedDirection && this.#recentHits.length > 1) {
+            if (this.#recentHits.length > 1 && !this.#isFixedDirection) {
                 this.#invertDirection()
                 return this.#calculateNextTarget()
             } else {
+                // last direction in the #nextDirection switch falls back to random coordinate
                 if (this.#searchDirection === 'right') {
                     this.#nextDirection()
                     return this.#useRandomAvailableCoordinate()
@@ -134,6 +113,28 @@ class Battleship {
                     return this.#calculateNextTarget()
                 }
             }
+        }
+    }
+
+    #isAvailableTarget(target) {
+        return this.#availableCoordinates.some(coordinate => coordinate.x === target.x && coordinate.y === target.y)
+    }
+
+    #invertDirection() {
+        this.#isFixedDirection = true
+        switch(this.#searchDirection) {
+            case 'up':
+                this.#searchDirection = 'down';
+                break;
+            case 'down':
+                this.#searchDirection = 'up';
+                break;
+            case 'left':
+                this.#searchDirection = 'right';
+                break;
+            case 'right':
+                this.#searchDirection = 'left';
+                break;
         }
     }
 
@@ -158,26 +159,22 @@ class Battleship {
         }
     }
 
-    #invertDirection() {
-        this.#isFixedDirection = true
-        switch(this.#searchDirection) {
-            case 'up':
-                this.#searchDirection = 'down';
-                break;
-            case 'down':
-                this.#searchDirection = 'up';
-                break;
-            case 'left':
-                this.#searchDirection = 'right';
-                break;
-            case 'right':
-                this.#searchDirection = 'left';
-                break;
+    reportSuccessfulHit() {
+        if (!this.#isFixedDirection) {
+            this.#recentHits.push(this.#lastTarget)
+        } else {
+            this.#recentHits.unshift(this.#lastTarget)
         }
     }
 
-    #isAvailableTarget(target) {
-        return this.#availableCoordinates.some(coordinate => coordinate.x === target.x && coordinate.y === target.y)
+    reportMissedHit() {
+        if (this.#recentHits.length === 1) {
+            this.#nextDirection()
+        } else if (this.#recentHits.length > 1) {
+            if (!this.#isFixedDirection) {
+                this.#invertDirection()
+            } 
+        }
     }
 }
 
