@@ -1,11 +1,11 @@
 import React from 'react';
 import {isBrowser} from 'react-device-detect';
 
-const Project = ({ projectClass, image, title, description, tags, links }) => {
+const Project = ({ projectClass, image, title, description, tags, links, disableOffset }) => {
     return (
         <div className={isBrowser ? 'project hidden' : 'project'}>
             <div className={`project-display ${projectClass}`}>
-                <img src={image} alt="spotify" className='project-image' />
+                <img src={image} alt="spotify" className={`project-image ${!disableOffset && 'offset'}`} />
             </div>
             <div className="project-information">
                 <h2>

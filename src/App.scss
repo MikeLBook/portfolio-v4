@@ -322,8 +322,11 @@ a {
   width: 100%;
   position: relative;
   bottom: 20px;
-  right: 20px;
   border-radius: 5px;
+}
+
+.offset {
+  right: 20px;
 }
 
 .tags {
