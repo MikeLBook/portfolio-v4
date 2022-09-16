@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Logo from '../../assets/landing-image.svg';
 import About from '../../assets/about.svg';
 import sdtools from '../../assets/sdtools.JPG';
-import resume from '../../assets/resume.pdf';
 import phase2 from '../../assets/phase2.webp';
 import ohh from '../../assets/ohh.png';
 import Project from '../../components/project';
@@ -82,7 +81,7 @@ const Portfolio = () => {
                     <h3>Oklahoma City, OK</h3>
                     <h3>mikebook24@gmail.com</h3>
                     <h3><a href="https://www.linkedin.com/in/michael-book-7a2831128/">LinkedIn</a></h3>
-                    <h3><a href={resume}>Resume</a></h3>
+                    <h3><a href="https://drive.google.com/file/d/13E2lKAnYSdXR90Xl_UddELTwAz2RkJpz/view?usp=sharing">Resume</a></h3>
                 </div>
                 <img src={About} className="contact-image" />
             </div>
