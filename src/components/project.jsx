@@ -5,7 +5,7 @@ const Project = ({ projectClass, image, title, description, tags, links, disable
     return (
         <div className={isBrowser ? 'project hidden' : 'project'}>
             <div className={`project-display ${projectClass}`}>
-                <img src={image} alt="spotify" className={`project-image ${!disableOffset && 'offset'}`} />
+                <img src={image} alt="project image" className={`project-image ${!disableOffset && 'offset'}`} />
             </div>
             <div className="project-information">
                 <h2>
