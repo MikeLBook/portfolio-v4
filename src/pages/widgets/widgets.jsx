@@ -39,11 +39,23 @@ const Widgets = () => {
         setRender('menu')
     }
 
-
     let display;
     if (render === 'menu') {
         display = modules.map((module, index) => {
-            return (<div key={`widget ${index}`} className='widget'><img src={module.image} alt={module.name} width="250px" height="250px" onClick={() => chooseModule(module.name)}/></div>)
+            return (
+                <div 
+                key={`widget-${index}`} 
+                className='widget'
+                >
+                    <img 
+                    src={module.image} 
+                    alt={module.name} 
+                    width="250px" 
+                    height="250px" 
+                    onClick={() => chooseModule(module.name)}
+                    />
+                </div>
+            )
         })
     } else if (render === 'BattleShip') {
         display = <Battleship playSound={playSound} />
