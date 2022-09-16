@@ -4,9 +4,9 @@ import './calculator.scss';
 function Button(props) {
     return(
         <div 
-            className={props.type}
-            onClick={() => props.click(props.value)}
-            value={props.value}
+        className={props.value === '0' ? 'calc-button' : 'zero-button'}
+        onClick={() => props.click(props.value)}
+        value={props.value}
         >
             {props.value}
         </div>
@@ -185,25 +185,25 @@ class Calculator extends React.Component {
                     <div className='current-total'>{this.state.currentTotal}</div>
                     <div className='current-input'>{this.state.currentInput}</div>
                 </div>
-                <Button type='calc-button' value={`<`} click={this.handleBackspace} />
-                <Button type='calc-button' value='+/-' click={this.changeNegative} />
-                <Button type='calc-button' value='C' click={this.handleClear} />
-                <Button type='calc-button' value={`\\`} click={this.handleOperator} />
-                <Button type='calc-button' value='7' click={this.handleNumberPress} />
-                <Button type='calc-button' value='8' click={this.handleNumberPress} />
-                <Button type='calc-button' value='9' click={this.handleNumberPress} />
-                <Button type='calc-button' value='*' click={this.handleOperator} />
-                <Button type='calc-button' value='4' click={this.handleNumberPress} />
-                <Button type='calc-button' value='5' click={this.handleNumberPress} />
-                <Button type='calc-button' value='6' click={this.handleNumberPress} />
-                <Button type='calc-button' value='-' click={this.handleOperator} />
-                <Button type='calc-button' value='1' click={this.handleNumberPress} />
-                <Button type='calc-button' value='2' click={this.handleNumberPress} />
-                <Button type='calc-button' value='3' click={this.handleNumberPress} />
-                <Button type='calc-button' value='+' click={this.handleOperator} />
-                <Button type='zero-button' value='0' click={this.handleNumberPress} />
-                <Button type='calc-button' value='.' click={this.handleDecimal} />
-                <Button type='calc-button' value='=' click={this.evaluate} />
+                <Button value={`<`} click={this.handleBackspace} />
+                <Button value='+/-' click={this.changeNegative} />
+                <Button value='C' click={this.handleClear} />
+                <Button value={`\\`} click={this.handleOperator} />
+                <Button value='7' click={this.handleNumberPress} />
+                <Button value='8' click={this.handleNumberPress} />
+                <Button value='9' click={this.handleNumberPress} />
+                <Button value='*' click={this.handleOperator} />
+                <Button value='4' click={this.handleNumberPress} />
+                <Button value='5' click={this.handleNumberPress} />
+                <Button value='6' click={this.handleNumberPress} />
+                <Button value='-' click={this.handleOperator} />
+                <Button value='1' click={this.handleNumberPress} />
+                <Button value='2' click={this.handleNumberPress} />
+                <Button value='3' click={this.handleNumberPress} />
+                <Button value='+' click={this.handleOperator} />
+                <Button value='0' click={this.handleNumberPress} />
+                <Button value='.' click={this.handleDecimal} />
+                <Button value='=' click={this.evaluate} />
             </div>
         )
     }
