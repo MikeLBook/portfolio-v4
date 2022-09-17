@@ -4,7 +4,7 @@ import './calculator.scss';
 function Button(props) {
     return(
         <div 
-        className={props.value === '0' ? 'calc-button' : 'zero-button'}
+        className={props.value === '0' ? 'zero-button' : 'calc-button'}
         onClick={() => props.click(props.value)}
         value={props.value}
         >
